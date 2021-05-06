@@ -1,0 +1,31 @@
+.template-container {
+  margin: 20px;
+}
+
+.mat-cell:nth-child(4),
+.mat-header-cell:nth-child(4) {
+  flex: 0 0 40px;
+}
+
+.mat-cell:nth-child(5),
+.mat-header-cell:nth-child(5) {
+  flex: 0 0 40px;
+}
+
+.filter-container {
+  width: 70%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.action-container {
+  display: flex;
+  flex-direction: row;
+  left: 0;
+  right: 0;
+  margin-bottom: 5px;
+  width: 100%;
+  justify-content: space-between;
+}
