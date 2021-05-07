@@ -38,6 +38,7 @@ const materialModules = [
   ReactiveFormsModule,
   MatPaginatorModule,
   MatGridListModule,
+  MatMenuModule,
   MatMenuModule
 ];
 

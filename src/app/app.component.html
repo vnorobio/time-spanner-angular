@@ -9,25 +9,7 @@
   <mat-sidenav #start opened="false">
     <mat-nav-list>
 
-      <a mat-list-item routerLink="/" (click)="start.toggle()">
-        <mat-icon>home</mat-icon>
-        <span>Home</span>
-      </a>
-
-      <a mat-list-item routerLink="/countries" (click)="start.toggle()">
-        <mat-icon>flag</mat-icon>
-        <span>Country</span>
-      </a>
-
-      <a mat-list-item (click)="start.toggle()">
-        <mat-icon>map</mat-icon>
-        <span>Divisions</span>
-      </a>
-
-      <a mat-list-item>
-        <mat-icon>maps_home_work</mat-icon>
-        <span>Sub divisions</span>
-      </a>
+      <app-menu-list-item *ngFor="let item of menuItems" [item]="item"></app-menu-list-item>
 
     </mat-nav-list>
 

@@ -1,17 +1,17 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {CountryService} from '../../domain/country/country.service';
-import {CountryDatasource} from '../../domain/country/country.datasource';
+import {CountryService} from '../../../domain/country/country.service';
+import {CountryDatasource} from '../../../domain/country/country.datasource';
 import {fromEvent, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-country',
-  templateUrl: './country.component.html',
-  styleUrls: ['./country.component.scss']
+  templateUrl: './country-table.component.html',
+  styleUrls: ['./country-table.component.scss']
 })
-export class CountryComponent implements OnInit, AfterViewInit {
+export class CountryTableComponent implements OnInit, AfterViewInit {
   dataSource: CountryDatasource;
   displayedColumns: string[] = ['alpha3Code', 'name', 'numericCode', 'edit', 'delete'];
 
