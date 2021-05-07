@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {CountryService} from '../../domain/country.service';
+import {CountryService} from '../../domain/country/country.service';
 import {CountryDatasource} from '../../domain/country/country.datasource';
-import {merge} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {fromEvent, merge} from 'rxjs';
+import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-country',
@@ -17,6 +17,7 @@ export class CountryComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild('filterInput', {static: false}) filter: ElementRef;
 
   constructor(private countryService: CountryService) {
 
@@ -24,24 +25,37 @@ export class CountryComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dataSource = new CountryDatasource(this.countryService);
-    this.dataSource.loadCountries();
+    this.dataSource.loadCountries(0, 10);
   }
 
   ngAfterViewInit(): void {
+    fromEvent(this.filter.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadCountriesPaged();
+        })
+      ).subscribe();
 
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         tap(() => {
-          this.dataSource.loadCountrySorted(this.sort, this.paginator);
+          this.loadCountriesPaged();
         })
       )
       .subscribe();
-
-
   }
 
-
-
+  private loadCountriesPaged(): void {
+    this.dataSource.loadCountries(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      this.sort?.active,
+      this.sort?.direction,
+      this.filter.nativeElement.value);
+  }
 }
