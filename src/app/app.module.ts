@@ -11,12 +11,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {CountryModule} from './modules/country/country.module';
 import { MenuListItemComponent } from './modules/menu-list-item/menu-list-item.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MenuListItemComponent
+    MenuListItemComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

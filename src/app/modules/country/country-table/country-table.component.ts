@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {CountryService} from '../../../domain/country/country.service';
-import {CountryDatasource} from '../../../domain/country/country.datasource';
+import {CountryDatasource} from './country.datasource';
 import {fromEvent, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 })
 export class CountryTableComponent implements OnInit, AfterViewInit {
   dataSource: CountryDatasource;
-  displayedColumns: string[] = ['alpha3Code', 'name', 'numericCode', 'edit', 'delete'];
+  displayedColumns: string[] = ['alpha3Code', 'name', 'numericCode', 'delete'];
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;

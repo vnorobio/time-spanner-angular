@@ -34,7 +34,7 @@ export class MenuListItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.menuService.currentUrl.subscribe((url: string) => {
+    this.menuService.currentUrlBSubject$.subscribe((url: string) => {
       if (this.item.route && url) {
         // console.log(`Checking '/${this.item.route}' against '${url}'`);
         this.expanded = url.indexOf(`/${this.item.route}`) === 0;

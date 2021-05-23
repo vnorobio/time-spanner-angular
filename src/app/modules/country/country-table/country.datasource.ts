@@ -1,7 +1,7 @@
 import {CollectionViewer, DataSource} from '@angular/cdk/collections';
-import {Country} from './model/country.model';
+import {Country} from '../../../domain/country/model/country.model';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {CountryService} from './country.service';
+import {CountryService} from '../../../domain/country/country.service';
 import {catchError} from 'rxjs/operators';
 
 export class CountryDatasource implements DataSource<Country> {

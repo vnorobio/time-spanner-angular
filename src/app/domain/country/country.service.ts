@@ -3,9 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {CountryResponse} from './model/country-response.interface';
 import {Observable} from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CountryService {
 
   private baseUrl = 'http://localhost:8084/api/v1';

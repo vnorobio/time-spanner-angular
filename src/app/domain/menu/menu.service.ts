@@ -6,12 +6,12 @@ import {NavigationEnd, Router} from '@angular/router';
 export  class MenuService{
 
   public sideNav: any;
-  public currentUrl = new BehaviorSubject<string>(undefined);
+  public currentUrlBSubject$ = new BehaviorSubject<string>(undefined);
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof  NavigationEnd) {
-        this.currentUrl.next(event.urlAfterRedirects);
+        this.currentUrlBSubject$.next(event.urlAfterRedirects);
       }
     });
   }

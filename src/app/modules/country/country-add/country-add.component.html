@@ -1,0 +1,46 @@
+<div class="template-container">
+  <h1 class="mat-h1">Country Information</h1>
+  <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="form-container-card">
+      <mat-card-content>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput maxlength="3" placeholder="Alpha 3 Code" formControlName="alpha3Code">
+              <mat-error *ngIf="getControl('alpha3Code').hasError('required')">
+                Code is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput maxlength="5" placeholder="Numeric Code" type="number" formControlName="numericCode">
+              <mat-error *ngIf="numericCode.hasError('required')">
+                numeric code is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Country  name" formControlName="name">
+              <mat-error *ngIf="name.hasError('required')">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </mat-card-content>
+      <mat-card-actions align="center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid">Submit</button>
+        <button mat-raised-button color="warn" type="submit">Cancel</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
+

@@ -12,7 +12,7 @@
     </div>
 
     <div class="button-container">
-      <button class="add-button" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+      <button class="add-button" mat-fab color="primary" aria-label="Example icon button with a delete icon" [routerLink]="'add'">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -40,17 +40,17 @@
     </ng-container>
 
     <!-- Actions Column -->
-    <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button mat-icon-button color="primary"  title="Edit"><mat-icon>edit</mat-icon></button>
-      </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="delete">
       <mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
       <mat-cell *matCellDef="let row">
         <button mat-icon-button color="primary"  title="delete"><mat-icon>delete</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button color="primary"  title="Edit"><mat-icon>edit</mat-icon></button>
       </mat-cell>
     </ng-container>
 
