@@ -12,6 +12,8 @@ import {CountryModule} from './modules/country/country.module';
 import { MenuListItemComponent } from './modules/menu-list-item/menu-list-item.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
+import {ErrorHandlerModule} from './modules/errors/error-handler.module';
+import {NotificationService} from './shared/services/notification.service';
 
 @NgModule({
   declarations: [
@@ -27,10 +29,12 @@ import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.c
     HttpClientModule,
     CustomMaterialModule,
     CountryModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ErrorHandlerModule
   ],
   providers: [
-    CountryService
+    CountryService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

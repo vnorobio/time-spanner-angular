@@ -1,17 +1,20 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {CountryService} from '../../../domain/country/country.service';
 import {CountryDatasource} from './country.datasource';
-import {fromEvent, merge} from 'rxjs';
-import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
+import {fromEvent, merge, Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged, takeUntil, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-country',
   templateUrl: './country-table.component.html',
   styleUrls: ['./country-table.component.scss']
 })
-export class CountryTableComponent implements OnInit, AfterViewInit {
+export class CountryTableComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  private componentIsDestroyed$ = new Subject<boolean>();
+
   dataSource: CountryDatasource;
   displayedColumns: string[] = ['alpha3Code', 'name', 'numericCode', 'delete'];
 
@@ -57,5 +60,18 @@ export class CountryTableComponent implements OnInit, AfterViewInit {
       this.sort?.active,
       this.sort?.direction,
       this.filter.nativeElement.value);
+  }
+
+  onDelete(id): void {
+    this.countryService.deleteCountry(id)
+      .pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(
+        () => this.loadCountriesPaged()
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.componentIsDestroyed$.next(true);
+    this.componentIsDestroyed$.complete();
   }
 }

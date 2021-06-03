@@ -1,12 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import {CountryService} from '../../../domain/country/country.service';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-country-form',
   templateUrl: './country-add.component.html',
   styleUrls: ['./country-add.component.scss']
 })
-export class CountryAddComponent implements OnInit {
+export class CountryAddComponent implements OnInit, OnDestroy {
+
+  private componentIsDestroyed$ = new Subject<boolean>();
 
   formGroup = this.formBuilder.group(
     {
@@ -22,13 +28,20 @@ export class CountryAddComponent implements OnInit {
     }
   );
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private countryService: CountryService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
-    alert('Thanks!');
+    this.countryService.addCountry(this.formGroup.value)
+      .pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(
+        () => this.router.navigate(['/countries'])
+      );
+
   }
 
   get alpha3Code(): AbstractControl {
@@ -36,6 +49,7 @@ export class CountryAddComponent implements OnInit {
   }
 
   get name(): AbstractControl {
+
     return this.formGroup.controls.name;
   }
 
@@ -45,5 +59,14 @@ export class CountryAddComponent implements OnInit {
 
   getControl(name: string): AbstractControl {
     return this.formGroup.controls[name];
+  }
+
+  ngOnDestroy(): void {
+    this.componentIsDestroyed$.next(true);
+    this.componentIsDestroyed$.complete();
+  }
+
+  onCancel(): void {
+    this.router.navigate(['/countries']);
   }
 }
